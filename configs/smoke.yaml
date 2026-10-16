@@ -1,0 +1,29 @@
+device: cuda:0
+data:
+  celeba_root: ../../datasets/celeba/extracted/celeba
+  lfw_root: ../../datasets/lfw
+  max_images: 4000
+model:
+  image_size: 112
+  emb_dim: 128
+  pretrained: true
+  margin_loss: cosface
+  scale: 30.0
+  margin: 0.35
+train:
+  protocol: smoke
+  epochs: 1
+  batch_size: 64
+  lr: 0.05
+  num_workers: 2
+  seed: 42
+eval:
+  batch_size: 32
+  num_workers: 0
+  max_pairs: 200
+  ssim_max_images: 40
+  filters: [original, uploaded, thinner_face, mellow_glow, belle]
+paths:
+  checkpoint_dir: outputs/checkpoints/smoke
+  log_dir: outputs/logs/smoke
+  figure_dir: outputs/figures/smoke

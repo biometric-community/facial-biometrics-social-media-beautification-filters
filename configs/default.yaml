@@ -1,0 +1,29 @@
+device: cuda:0
+data:
+  celeba_root: ../../datasets/celeba/extracted/celeba
+  lfw_root: ../../datasets/lfw
+  max_images: null
+model:
+  image_size: 112
+  emb_dim: 128
+  pretrained: true
+  margin_loss: cosface
+  scale: 30.0
+  margin: 0.35
+train:
+  protocol: full
+  epochs: 5
+  batch_size: 128
+  lr: 0.05
+  num_workers: 4
+  seed: 42
+eval:
+  batch_size: 64
+  num_workers: 2
+  max_pairs: null
+  ssim_max_images: 200
+  filters: [original, uploaded, thinner_face, mellow_glow, belle]
+paths:
+  checkpoint_dir: outputs/checkpoints/full
+  log_dir: outputs/logs/full
+  figure_dir: outputs/figures/full
