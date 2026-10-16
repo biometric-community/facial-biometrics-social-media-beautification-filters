@@ -19,4 +19,5 @@ Required: `celeba` + `lfw` (~3.5 GiB) → full_train.
 
 ## GitHub
 
-`facial-biometrics-in-the-social-media-era-an-in-depth-analysis-of-the-challenge-posed-by-beautification-filters`
+Remote (≤100 chars): `facial-biometrics-social-media-beautification-filters`  
+Folder slug (unchanged): `facial-biometrics-in-the-social-media-era-an-in-depth-analysis-of-the-challenge-posed-by-beautification-filters`

@@ -6,7 +6,9 @@
 
 Lab twin of Mirabet-Herranz et al. (IEEE TBIOM 2025): impact of social-media beautification on face verification, with SSIM filter aggressivity.
 
-**Repository:** https://github.com/biometric-community/facial-biometrics-in-the-social-media-era-an-in-depth-analysis-of-the-challenge-posed-by-beautification-filters
+**Repository:** https://github.com/biometric-community/facial-biometrics-social-media-beautification-filters
+
+Monorepo folder (long paper slug): `projects/papers/facial-biometrics-in-the-social-media-era-an-in-depth-analysis-of-the-challenge-posed-by-beautification-filters`
 
 ## Setup
 
