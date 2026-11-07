@@ -1,0 +1,20 @@
+# Published values from Mirabet-Herranz, Galdi & Dugelay, "Facial Biometrics in the Social
+# Media Era: An in-Depth Analysis of the Challenge Posed by Beautification Filters",
+# IEEE TBIOM 7(1), 2025. PDF: eurecom.fr/publication/7825.
+source: https://eurecom.fr/publication/7825/download/sec-publi-7825.pdf
+
+# Table 3, FFMF-CALFW (F/M), SSIM in %.
+ssim_pct:
+  uploaded: 97
+  thinner_face: 92
+  mellow_glow: 89
+  belle: 94
+ssim_tolerance: 3
+
+# Table 4, ArcFace with ResNet 50, original images on FFMF-CALFW, accuracy in %.
+original_accuracy: 90.30
+tolerance_pp: 1.0
+
+# Table 4: the largest accuracy drop of any listed filter on any listed model (MagFace,
+# original 94.17 to Mellow glow 92.38).
+max_filter_drop_pp: 1.79
