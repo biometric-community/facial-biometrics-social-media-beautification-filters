@@ -55,8 +55,8 @@ def filter_thinner_face(img: np.ndarray, squeeze: float = 0.88) -> np.ndarray:
     cx = (w - 1) / 2.0
     for y in range(h):
         # Stronger squeeze near vertical mid-band (cheeks / jaw)
-        vert = 1.0 - 0.35 * np.cos((y / max(h - 1, 1) - 0.5) * np.pi)
-        local = squeeze + (1.0 - squeeze) * (1.0 - vert)
+        vert = np.cos((y / max(h - 1, 1) - 0.5) * np.pi)
+        local = 1.0 - (1.0 - squeeze) * vert
         for x in range(w):
             dx = x - cx
             map_x[y, x] = cx + dx / local

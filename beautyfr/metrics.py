@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Sequence, Tuple
 
+import cv2
 import numpy as np
 
 
@@ -80,15 +81,14 @@ def roc_curve_points(
 
 
 def auc_trapezoid(fpr: np.ndarray, tpr: np.ndarray) -> float:
-    order = np.argsort(fpr)
-    return float(np.trapz(tpr[order], fpr[order]))
+    order = np.lexsort((tpr, fpr))  # ties in FPR must rise in TPR
+    x, y = fpr[order], tpr[order]
+    return float(np.sum(np.diff(x) * (y[1:] + y[:-1]) / 2.0))
 
 
-def ssim_gray(a: np.ndarray, b: np.ndarray) -> float:
-    """Simple SSIM on grayscale uint8 images (paper Table III style metric)."""
+def ssim_gray(a: np.ndarray, b: np.ndarray, window: int = 8) -> float:
+    """SSIM (paper Eq. 1) on grayscale images, from local statistics in sliding windows."""
     if a.shape != b.shape:
-        import cv2
-
         b = cv2.resize(b, (a.shape[1], a.shape[0]))
     if a.ndim == 3:
         a = np.mean(a.astype(np.float64), axis=2)
@@ -98,14 +98,17 @@ def ssim_gray(a: np.ndarray, b: np.ndarray) -> float:
         b = b.astype(np.float64)
     c1 = (0.01 * 255) ** 2
     c2 = (0.03 * 255) ** 2
-    mu_a = a.mean()
-    mu_b = b.mean()
-    sigma_a = a.var()
-    sigma_b = b.var()
-    sigma_ab = ((a - mu_a) * (b - mu_b)).mean()
+
+    def pool(x: np.ndarray) -> np.ndarray:
+        return cv2.blur(x, (window, window))[window:-window, window:-window]
+
+    mu_a, mu_b = pool(a), pool(b)
+    sigma_a = pool(a * a) - mu_a**2
+    sigma_b = pool(b * b) - mu_b**2
+    sigma_ab = pool(a * b) - mu_a * mu_b
     num = (2 * mu_a * mu_b + c1) * (2 * sigma_ab + c2)
     den = (mu_a**2 + mu_b**2 + c1) * (sigma_a + sigma_b + c2)
-    return float(num / den)
+    return float((num / den).mean())
 
 
 def summarize_verification(scores: np.ndarray, labels: np.ndarray) -> Dict:
